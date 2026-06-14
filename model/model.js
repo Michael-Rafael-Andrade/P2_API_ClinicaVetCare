@@ -1,20 +1,6 @@
-const { Sequelize, DataTypes } = require('sequelize');
-require('dotenv').config();
+const { DataTypes } = require('sequelize');
+const sequelize = require('../model/server.js');
 
-const sequelize = new Sequelize(
-    process.env.DB_NAME || 'vetcare_api',
-    process.env.DB_USER || 'avaliacao_fullstack',
-    process.env.DB_PASS || 'avaliacao_fullstack',
-    {
-        host: process.env.DB_HOST || 'localhost',
-        dialect: 'mysql',
-        logging: false,
-        define: {
-            timestamps: true,
-            underscored: true
-        }
-    }
-);
 
 // Modelo Usuario
 const Usuario = sequelize.define('Usuario', {
@@ -119,11 +105,11 @@ Atendimento.belongsTo(Usuario, { foreignKey: 'usuario_id', as: 'usuario' });
 // alter : true => altera a tabela ou sincroniza com a tabela
 
 // Sincroniza os modelos com o banco de dados, aplicando alterações de estrutura (alter : true )
-sequelize.sync({ alter: true }).then(() => {
-    console.log('Modelos sincronizados com o banco de dados.');
-}).catch((error) => {
-    console.log('Erro ao sincronizar modelos com o banco de dados: ', error);
-});
+// sequelize.sync({ alter: true }).then(() => {
+//     console.log('Modelos sincronizados com o banco de dados.');
+// }).catch((error) => {
+//     console.log('Erro ao sincronizar modelos com o banco de dados: ', error);
+// });
 
 module.exports = {
     sequelize,

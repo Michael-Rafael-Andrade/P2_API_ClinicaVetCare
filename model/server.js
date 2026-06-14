@@ -1,12 +1,17 @@
 const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(
-    'vetcare_api', // nome da base de dados
-    'avaliacao_fullstack', // nome do usuário do banco de dados
-    'avaliacao_fullstack', // senha do usuáio
+    process.env.DB_NAME || 'vetcare_api',
+    process.env.DB_USER || 'avaliacao_fullstack',
+    process.env.DB_PASS || 'avaliacao_fullstack',
     {
-        host: 'localhost', // endereço do Banco de Dados
-        dialect: 'mysql'  // dialeto do Banco de Dados
+        host: process.env.DB_HOST || 'localhost',
+        dialect: 'mysql',
+        logging: false, // Opcional: desativa logs SQL poluindo o terminal
+        define: {
+            timestamps: true,
+            underscored: true
+        }
     }
 );
 
